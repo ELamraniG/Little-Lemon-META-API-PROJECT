@@ -29,6 +29,9 @@ class MenuItemsView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
     def post(self, request):
+        if not isManager(request.user):
+            return Response({'message': 'Only managers can add menu items.'}, status=status.HTTP_403_FORBIDDEN)
+
         serializer = MenuItemSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
