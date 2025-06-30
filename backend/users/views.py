@@ -15,7 +15,6 @@ class ManagerUsersView(APIView):
         if not isManager(request.user):
             return Response({'message': 'Only managers can view group users.'}, status=status.HTTP_403_FORBIDDEN)
 
-        ensureDefaultGroups()
         managerGroup = Group.objects.get(name='Manager')
         users = managerGroup.user_set.all()
         serializer = GroupUserSerializer(users, many=True)
@@ -25,7 +24,6 @@ class ManagerUsersView(APIView):
         if not isManager(request.user):
             return Response({'message': 'Only managers can add group users.'}, status=status.HTTP_403_FORBIDDEN)
 
-        ensureDefaultGroups()
         userId = request.data.get('userId')
         if not userId:
             return Response({'message': 'userId is required.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -47,7 +45,6 @@ class ManagerUsersIdView(APIView):
         if not isManager(request.user):
             return Response({'message': 'Only managers can remove group users.'}, status=status.HTTP_403_FORBIDDEN)
 
-        ensureDefaultGroups()
         try:
             user = User.objects.get(id=userId)
         except User.DoesNotExist:
@@ -65,7 +62,6 @@ class DeliveryCrewUsersView(APIView):
         if not isManager(request.user):
             return Response({'message': 'Only managers can view group users.'}, status=status.HTTP_403_FORBIDDEN)
 
-        ensureDefaultGroups()
         deliveryGroup = Group.objects.get(name='Delivery crew')
         users = deliveryGroup.user_set.all()
         serializer = GroupUserSerializer(users, many=True)
@@ -75,7 +71,6 @@ class DeliveryCrewUsersView(APIView):
         if not isManager(request.user):
             return Response({'message': 'Only managers can add group users.'}, status=status.HTTP_403_FORBIDDEN)
 
-        ensureDefaultGroups()
         userId = request.data.get('userId')
         if not userId:
             return Response({'message': 'userId is required.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -97,7 +92,6 @@ class DeliveryCrewUsersIdView(APIView):
         if not isManager(request.user):
             return Response({'message': 'Only managers can remove group users.'}, status=status.HTTP_403_FORBIDDEN)
 
-        ensureDefaultGroups()
         try:
             user = User.objects.get(id=userId)
         except User.DoesNotExist:
