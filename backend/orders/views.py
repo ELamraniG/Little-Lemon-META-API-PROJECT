@@ -34,7 +34,7 @@ class CartView(APIView):
             return Response({'message': 'Menu item not found.'}, status=status.HTTP_404_NOT_FOUND)
 
         unitPrice = menuItem.price
-        price = unitPrice * quantity
+        price = unitPrice
         cartItem, created = Cart.objects.get_or_create(
             user=request.user,
             menuitem=menuItem,
