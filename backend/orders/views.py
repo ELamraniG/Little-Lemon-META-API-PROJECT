@@ -94,8 +94,6 @@ class OrdersView(APIView):
 
         order.total = total
         order.save()
-        cartItems.delete()
-
         serializer = OrderSerializer(order)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
