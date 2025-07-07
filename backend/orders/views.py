@@ -162,10 +162,7 @@ class OrdersIdView(APIView):
             if order.delivery_crew_id != request.user.id:
                 return Response({'message': 'You can only update assigned orders.'}, status=status.HTTP_403_FORBIDDEN)
 
-            if 'status' not in request.data:
-                return Response({'message': 'Only status can be updated.'}, status=status.HTTP_400_BAD_REQUEST)
-
-            orderStatus = request.data.get('status')
+            orderStatus = request.data.get('status', order.status)
             if orderStatus not in [0, 1, '0', '1']:
                 return Response({'message': 'Status must be 0 or 1.'}, status=status.HTTP_400_BAD_REQUEST)
 
