@@ -113,6 +113,15 @@ class OrdersIdView(APIView):
         order = self.getOrderById(pk)
         if order is None:
             return Response({'message': 'Order not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        if isManager(request.user):
+            pass
+        elif isDeliveryCrew(request.user):
+            if order.delivery_crew_id != request.user.id:
+                return Response({'message': 'You cannot view this order.'}, status=status.HTTP_403_FORBIDDEN)
+        elif order.user_id != request.user.id:
+            return Response({'message': 'You cannot view this order.'}, status=status.HTTP_403_FORBIDDEN)
+
         serializer = OrderSerializer(order)
         return Response(serializer.data)
 
