@@ -73,6 +73,7 @@ class OrdersView(APIView):
         serializer = OrderSerializer(page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
+    @transaction.atomic
     def post(self, request):
         cartItems = Cart.objects.filter(user=request.user)
         if not cartItems.exists():
