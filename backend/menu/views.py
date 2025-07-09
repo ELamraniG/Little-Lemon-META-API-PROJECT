@@ -17,7 +17,7 @@ class MenuItemsView(APIView):
         search = request.query_params.get('search')
         if search:
             menuItems = menuItems.filter(title__icontains=search)
-        ordering = request.query_params.get('ordering', 'id')
+        ordering = request.query_params.get('ordering')
         allowedOrdering = ['id', '-id', 'price', '-price', 'title', '-title']
         if ordering in allowedOrdering:
             menuItems = menuItems.order_by(ordering)
