@@ -149,6 +149,9 @@ class OrdersIdView(APIView):
                 except User.DoesNotExist:
                     return Response({'message': 'Delivery crew user not found.'}, status=status.HTTP_400_BAD_REQUEST)
 
+                if not deliveryCrew.groups.filter(name='Delivery crew').exists():
+                    return Response({'message': 'User is not in Delivery crew group.'}, status=status.HTTP_400_BAD_REQUEST)
+
             serializer = OrderSerializer(order, data=data, partial=partial)
             if serializer.is_valid():
                 serializer.save()
