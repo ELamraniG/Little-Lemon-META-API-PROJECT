@@ -1,12 +1,12 @@
 NAME = raycast_demo
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = #-Wall -Wextra -Werror
 
 CC = cc $(FLAGS)
 
 FOLDER = mlx_linux
 
-SRC = raycast_main.c raycast.c
+SRC = testing_fractal.c
 
 OBJ = $(SRC:%.c=%.o)
 
